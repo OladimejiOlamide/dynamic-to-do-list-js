@@ -15,13 +15,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check if the input is not empty
         if (taskText === "") {
-            alert("Please enter a task.");
+            // NOTE: The user prompt required using alert(). In a production environment, 
+            // a custom modal or inline message should be used instead of alert().
+            alert("Please enter a task."); 
             return;
         }
 
         // Create a new li element
         const li = document.createElement('li');
         li.textContent = taskText;
+        
+        // --- Advanced DOM Manipulation: Add a base class to the list item ---
+        // This is where classList.add is used to assign a base style (if needed)
+        // or a specific type, although we will use event listener for completion.
+        li.classList.add('todo-item'); 
+
+        // Add a click listener to the list item to mark it as complete/incomplete
+        li.addEventListener('click', function() {
+            // --- Advanced DOM Manipulation: Toggle the 'completed' class ---
+            // This is the ideal use case for classList.
+            this.classList.toggle('completed'); 
+        });
 
         // Create a new button element for removing the task
         const removeButton = document.createElement('button');
@@ -30,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Assign an onclick event to the remove button
         removeButton.onclick = function() {
+            // Removes the parent <li> element from the <ul>
             taskList.removeChild(li);
         };
 
